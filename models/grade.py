@@ -4,10 +4,11 @@ from typing import Optional
 
 @dataclass
 class Grade:
-    id: Optional[int] = None
     student_id: int
     subject_id: int
     score: float
+    
+    id: Optional[int] = None
     evaluation_type: str = "Exam"
     evaluation_date: str = field(default_factory=lambda: date.today().isoformat())
     comment: Optional[str] = None

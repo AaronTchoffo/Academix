@@ -4,13 +4,15 @@ from typing import Optional
 
 @dataclass
 class Student:
-    id: Optional[int] = None
     student_id: str
     last_name: str
     first_name: str
+    gender: str
     birth_date: str
-    parent_phone: Optional[str] = None
     class_id: int
+
+    id: Optional[int] = None
+    parent_phone: Optional[str] = None
     registration_date: str = field(default_factory=lambda: date.today().isoformat())
     is_active: bool = True
 

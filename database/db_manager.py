@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import bcrypt
 
 class DatabaseManager:
 
@@ -9,11 +10,13 @@ class DatabaseManager:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance._init_db()
         return cls._instance
     
     def __init__(self):
+        if hasattr(self, "connection"):
+            return
         self.connection = sqlite3.connect("data/school_data.db")
+        self._init_db()
     
     def _init_db(self):
         #verify and create data/
@@ -25,8 +28,17 @@ class DatabaseManager:
         with open("database/schema.sql", "r", encoding="utf-8") as file:
             schema = file.read()
         cursor.executescript(schema)
+
+        #verify if admin exist:
+        cursor.execute("SELECT id FROM users WHERE username = ?", ("admin",))
+        admin = cursor.fetchone()
+        if not admin:
+            #create admin user with default password "admin123"
+            hashed_password = bcrypt.hashpw("admin123".encode('utf-8'), bcrypt.gensalt())
+            cursor.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)",
+                            ("admin", hashed_password.decode('utf-8')))
+
         self.connection.commit()
-        self.connection.close()
     
     def execute(self, query, params=None):
         cursor = self.connection.cursor()

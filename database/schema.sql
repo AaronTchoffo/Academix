@@ -1,10 +1,10 @@
-CREATE TABLE users {
+CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
-    creation_date TEXT NOT NULL DEFAULT (datetime("now")),
+    creation_date TEXT DEFAULT CURRENT_TIMESTAMP,
     last_login TEXT
-};
+);
 
 CREATE TABLE classes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,7 +12,7 @@ CREATE TABLE classes (
     class_level TEXT NOT NULL,
     school_year TEXT NOT NULL,
     maximum_students INTEGER DEFAULT 50,
-    creation_date TEXT NOT NULL DEFAULT (datetime('now'))
+    creation_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE students (
@@ -20,10 +20,11 @@ CREATE TABLE students (
     student_id TEXT NOT NULL UNIQUE,
     last_name TEXT NOT NULL,
     first_name TEXT NOT NULL,
+    gender TEXT CHECK(gender IN ('M', 'F')) NOT NULL,
     birth_date TEXT NOT NULL,
     parent_phone TEXT,
     class_id INTEGER REFERENCES classes(id),
-    registration_date TEXT NOT NULL DEFAULT (datetime('now')),
+    registration_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active INTEGER NOT NULL DEFAULT 1
 );
 
@@ -41,7 +42,7 @@ CREATE TABLE grades (
     subject_id INTEGER NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
     score REAL NOT NULL CHECK(score >= 0 AND score <= 20),
     evaluation_type TEXT DEFAULT 'exam',
-    evaluation_date TEXT NOT NULL DEFAULT (date('now')),
+    evaluation_date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     comment TEXT
 );
 
