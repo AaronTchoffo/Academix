@@ -4,7 +4,7 @@ from typing import Optional
 
 @dataclass
 class Grade:
-    student_id: int
+    student_id: str
     subject_id: int
     score: float
     

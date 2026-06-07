@@ -5,7 +5,7 @@ class StatsService:
     def __init__(self):
         self.db = DatabaseManager()
 
-    def get_student_average(self, student_id: int):
+    def get_student_average(self, student_id: str):
 
         query = """SELECT SUM(g.score * s.subject_weight) / SUM(s.subject_weight)
           FROM grades g JOIN subjects s ON g.subject_id = s.id WHERE g.student_id = ?"""

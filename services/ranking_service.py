@@ -32,7 +32,7 @@ class RankingService:
                 is_active=row[9]
             )
             
-            average = self.stats.get_student_average(student.id)
+            average = self.stats.get_student_average(student.student_id)
 
             students.append({
                 "student": student,
@@ -42,12 +42,12 @@ class RankingService:
 
             return students
         
-    def get_student_rank(self, student_id: int):
+    def get_student_rank(self, student_id: str):
 
         students = self.get_students_ranked()
 
         for index, entry in enumerate(students, start=1):
-            if entry["student"].id == student_id:
+            if entry["student"].student_id == student_id:
                 return index, entry["average"]
         return None, None
     
@@ -80,7 +80,7 @@ class RankingService:
                 registration_date=row[8],
                 is_active=row[9]
             )
-            average = self.stats.get_student_average(student.id)
+            average = self.stats.get_student_average(student.student_id)
             students.append({
                 "student": student,
                 "average": average
@@ -90,12 +90,12 @@ class RankingService:
         return students
 
 
-    def get_student_class_rank(self, student_id: int, class_id: int):
+    def get_student_class_rank(self, student_id: str, class_id: int):
 
         students = self.get_class_rankings(class_id)
 
         for index, entry in enumerate(students, start=1):
-            if entry["student"].id == student_id:
+            if entry["student"].student_id == student_id:
                 return index, entry["average"]
         return None, None
 

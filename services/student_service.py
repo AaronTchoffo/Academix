@@ -20,7 +20,7 @@ class StudentService:
 
     def get_all_students(self):
 
-        query = """SELECT student_id, last_name,
+        query = """SELECT id, student_id, last_name,
           first_name, gender, birth_date, parent_phone, class_id, registration_date, is_active FROM students"""
 
         rows = self.db.execute(query)
@@ -28,15 +28,16 @@ class StudentService:
         students = []
         for row in rows:
             student = Student(
-                student_id=row[0],
-                last_name=row[1],
-                first_name=row[2],
-                gender=row[3],
-                birth_date=row[4],
-                parent_phone=row[5],
-                class_id=row[6],
-                registration_date=row[7],
-                is_active=bool(row[8])
+                id=row[0],
+                student_id=row[1],
+                last_name=row[2],
+                first_name=row[3],
+                gender=row[4],
+                birth_date=row[5],
+                parent_phone=row[6],
+                class_id=row[7],
+                registration_date=row[8],
+                is_active=bool(row[9])
             )
             students.append(student)
 
@@ -45,7 +46,7 @@ class StudentService:
     
     def get_student_by_id(self, student_id:str):
 
-        query = """SELECT student_id, last_name, 
+        query = """SELECT id, student_id, last_name, 
         first_name, gender, birth_date, parent_phone, class_id, registration_date, is_active 
         FROM students WHERE student_id = ?"""
 
@@ -57,15 +58,16 @@ class StudentService:
         row = result[0]
 
         student = Student(
-            student_id=row[0],
-            last_name=row[1],
-            first_name=row[2],
-            gender=row[3],
-            birth_date=row[4],
-            parent_phone=row[5],
-            class_id=row[6],
-            registration_date=row[7],
-            is_active=bool(row[8])
+            id=row[0],
+            student_id=row[1],
+            last_name=row[2],
+            first_name=row[3],
+            gender=row[4],
+            birth_date=row[5],
+            parent_phone=row[6],
+            class_id=row[7],
+            registration_date=row[8],
+            is_active=bool(row[9])
         )
 
         return student
@@ -73,7 +75,7 @@ class StudentService:
 
     def search_students(self, keyword:str):
 
-        query = """SELECT student_id, last_name, 
+        query = """SELECT id, student_id, last_name, 
         first_name, gender, birth_date, parent_phone, class_id, registration_date, is_active 
         FROM students WHERE (student_id LIKE ? OR last_name LIKE ? OR first_name LIKE ?) AND is_active = 1"""
 
@@ -85,15 +87,16 @@ class StudentService:
 
         for row in rows:
             student = Student(
-                student_id=row[0],
-                last_name=row[1],
-                first_name=row[2],
-                gender=row[3],
-                birth_date=row[4],
-                parent_phone=row[5],
-                class_id=row[6],
-                registration_date=row[7],
-                is_active=bool(row[8])
+                id=row[0],
+                student_id=row[1],
+                last_name=row[2],
+                first_name=row[3],
+                gender=row[4],
+                birth_date=row[5],
+                parent_phone=row[6],
+                class_id=row[7],
+                registration_date=row[8],
+                is_active=bool(row[9])
             )
             students.append(student)
 

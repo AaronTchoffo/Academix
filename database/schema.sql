@@ -38,7 +38,7 @@ CREATE TABLE subjects (
 
 CREATE TABLE grades (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,
+    student_id TEXT NOT NULL REFERENCES students(student_id) ON DELETE CASCADE,
     subject_id INTEGER NOT NULL REFERENCES subjects(id) ON DELETE CASCADE,
     score REAL NOT NULL CHECK(score >= 0 AND score <= 20),
     evaluation_type TEXT DEFAULT 'exam',

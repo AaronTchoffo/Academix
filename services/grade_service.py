@@ -6,7 +6,7 @@ class GradeService:
     def __init__(self):
         self.db = DatabaseManager()
 
-    def add_grade(self, student_id: int, subject_id: int, score: float, evaluation_type: str = "Exam", evaluation_date: str = None, comment: str = None) -> int:
+    def add_grade(self, student_id: str, subject_id: int, score: float, evaluation_type: str = "Exam", evaluation_date: str = None, comment: str = None) -> int:
         
         query = """INSERT INTO grades (student_id, subject_id, score,
           evaluation_type, evaluation_date, comment) VALUES (?, ?, ?, ?, ?, ?)"""
@@ -16,7 +16,7 @@ class GradeService:
         return grade_id
 
 
-    def get_grades_by_student(self, student_id: int) -> list[Grade]:
+    def get_grades_by_student(self, student_id: str) -> list[Grade]:
         
         query = """SELECT id, student_id, subject_id, score, evaluation_type, evaluation_date, comment
                    FROM grades WHERE student_id = ?"""
