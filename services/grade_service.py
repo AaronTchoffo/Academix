@@ -69,6 +69,7 @@ class GradeService:
         _, rowcount = self.db.execute_write(query, (score, evaluation_type, 
                                                     evaluation_date, comment, grade_id))
         return rowcount > 0
+    
 
     def delete_grade(self, grade_id: int) -> bool:
         
