@@ -15,7 +15,7 @@ class ReportCardService:
         self.classes = ClassService()
 
 
-    def generate_report_report(self, student_id: str) -> dict:
+    def generate_student_report(self, student_id: str) -> dict:
         student = self.students.get_student_by_id(student_id)
         if not student:
             return None
